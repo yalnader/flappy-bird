@@ -28,13 +28,10 @@ class Bird(pygame.sprite.Sprite):
 
         self.current_sprite = 1
 
-        #try using current_sprite below, if it doesn't break anything
         self.image = self.sprites[self.current_sprite]
 
-        # seperate transpart pixels from sprite pixels, helps with collision detection
+        # create bird rect
         self.mask = pygame.mask.from_surface(self.image)
-
-        # self.rect = self.mask.get_rect(self.image, center = (self.x_position, self.y_position))
         self.rect = self.mask.get_rect()
         self.rect.center = (self.x_position, self.y_position)
 
