@@ -1,30 +1,23 @@
 #imports
 import sys
 import pygame
+
 #const
 script_dir = sys.path[0]
-gravity = 1
+gravity = 0.05
 
-#images, and scaling
-bird_up = pygame.image.load("img/bird-wings-up-1.png")
-bird_up = pygame.transform.scale(bird_up, (40,30))
-bird_middle = pygame.image.load("img/bird-wings-middle-1.png")
-bird_middle = pygame.transform.scale(bird_middle, (40,30))
-bird_down = pygame.image.load("img/bird-wings-down-1.png")
-bird_down = pygame.transform.scale(bird_down, (40,30))
 
 #class which handles bird sprite. 
 class Bird(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, bird_up, bird_middle, bird_down):
         super().__init__()
 
         #define images
         self.sprites = [bird_up, bird_middle, bird_down]
         
-        self.x_position = 100
+        self.x_position = 50
         self.y_position = 300
-        self.velocity = 0
-        self.acceleration = 0
+        self.speed = 0
 
         self.current_sprite = 1
 
@@ -35,6 +28,16 @@ class Bird(pygame.sprite.Sprite):
         self.rect = self.mask.get_rect()
         self.rect.center = (self.x_position, self.y_position)
 
+    def update(self):
+        #logic for bird falling
+        self.speed += gravity
+        self.rect.centery += self.speed
+        
+    def flap(self):
+        #logic for bird flap
+        self.speed = 0
+        self.rect.centery -= 150
+  
 
 
 
